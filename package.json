@@ -1,6 +1,6 @@
 {
   "name": "snacky-words",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate some snacky words",
   "main": "server.coffee",
   "keywords": [

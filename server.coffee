@@ -10,24 +10,28 @@ _ = require 'lodash'
 
 app = express()
 words = 'res/words.txt'
+assets = path.join __dirname, 'public'
 
+# All environments
 app.set 'port', process.env.PORT or 3000
 app.set 'views', __dirname + '/views'
 app.set 'view engine', 'jade'
-app.set 'title', metadata.name
-
+app.set 'title', metadata.name + ' v' + metadata.version
 app.use express.favicon()
-app.use express.logger('dev')
+app.use express.logger 'dev'
 app.use express.bodyParser()
 app.use express.methodOverride()
 app.use app.router
-app.use require('stylus').middleware(__dirname + '/public')
-app.use express.static(path.join(__dirname, 'public'))
+app.use require('stylus').middleware assets
+app.use express.static assets
 
-# development only
-app.use express.errorHandler() if 'development' is app.get('env')
+# Development environment
+app.use express.errorHandler() if app.get('env') is 'development'
+
+# Routes
 app.get '/', routes.index
 
+# Main
 Q.nfcall(fs.readFile, words, 'utf-8')
   .then (words) ->
     words = words.split '\n'
