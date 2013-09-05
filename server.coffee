@@ -11,7 +11,8 @@ Q = require 'q'
 _ = require 'lodash'
 
 app = express()
-words = 'res/words.txt'
+stems = 'res/stems.txt'
+suffixes = 'res/suffixes.txt'
 assets = path.join __dirname, 'public'
 
 # All environments
@@ -45,12 +46,18 @@ app.use express.errorHandler() if app.get('env') is 'development'
 # Routes
 app.get '/', routes.index
 
+split = (str) ->
+  str = str.split '\n'
+  _.reject str, (_str) -> _.isEmpty _str
+
 # Main
-Q.nfcall(fs.readFile, words, 'utf-8')
-  .then (words) ->
-    words = words.split '\n'
-    words = _.reject words, (word) -> _.isEmpty word
-    app.set 'words', words
+Q.nfcall(fs.readFile, stems, 'utf-8')
+  .then (stems) ->
+    app.set 'stems', split stems
+  .then ->
+    Q.nfcall(fs.readFile, suffixes, 'utf-8')
+  .then (suffixes) ->
+    app.set 'suffixes', split suffixes
   .then ->
     http.createServer(app).listen app.get('port'), ->
       console.log 'Express server listening on port ' + app.get('port')
