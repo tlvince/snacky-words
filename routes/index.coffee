@@ -7,7 +7,7 @@ exports.index = (req, res) ->
     stems = _.shuffle req.app.get('stems')
 
     words = _.map stems, (stem) ->
-      if Math.random() < 0.5
+      if _.random() < 0.5
         suffixes = _.shuffle req.app.get('suffixes')
         return stem + suffixes[0]
       stem
