@@ -18,7 +18,10 @@ assets = path.join __dirname, 'public'
 app.set 'port', process.env.PORT or 3000
 app.set 'views', __dirname + '/views'
 app.set 'view engine', 'jade'
-app.set 'title', metadata.name + ' v' + metadata.version
+app.set 'title', metadata.name
+app.set 'description', metadata.description
+app.set 'author', metadata.author
+app.set 'version', metadata.version
 app.use express.favicon()
 app.use express.logger 'dev'
 app.use express.bodyParser()

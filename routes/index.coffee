@@ -6,4 +6,8 @@ exports.index = (req, res) ->
     words = _.shuffle req.app.get('words')
     snackies = snackies.concat words
   res.render 'index',
-    title: req.app.get('title'), words: snackies.join ' '
+    title: req.app.get('title')
+    author: req.app.get('author')
+    description: req.app.get('description')
+    version: req.app.get('version')
+    words: snackies.join ' '
