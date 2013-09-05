@@ -1,5 +1,5 @@
 fiat
-dei
+die
 longs
 tengs
 bom
