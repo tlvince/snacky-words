@@ -3,6 +3,8 @@ http = require 'http'
 path = require 'path'
 routes = require './routes'
 metadata = require './package.json'
+stylus = require 'stylus'
+nib = require 'nib'
 
 fs = require 'fs'
 Q = require 'q'
@@ -22,7 +24,16 @@ app.use express.logger 'dev'
 app.use express.bodyParser()
 app.use express.methodOverride()
 app.use app.router
-app.use require('stylus').middleware assets
+
+app.use require('stylus').middleware
+  src: assets
+  dest: assets
+  compile: (str, path) ->
+    stylus(str)
+      .set('filename', path)
+      .set('compress', true)
+      .use nib()
+
 app.use express.static assets
 
 # Development environment

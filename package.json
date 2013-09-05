@@ -1,6 +1,6 @@
 {
   "name": "snacky-words",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Generate some snacky words",
   "main": "server.coffee",
   "keywords": [
@@ -15,6 +15,7 @@
     "lodash": "~1.3.1",
     "express": "~3.3.8",
     "stylus": "~0.37.0",
-    "jade": "~0.35.0"
+    "jade": "~0.35.0",
+    "nib": "~1.0.1"
   }
 }
